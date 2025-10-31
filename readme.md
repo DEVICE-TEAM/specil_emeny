@@ -19,7 +19,7 @@ Quality assurance.
 **[The Kristal Team](https://github.com/KristalTeam)**  
 For [Kristal](https://kristal.cc/).
 
-**[Ashywalker](https://www.spriters-resource.com/profile/askywalker/)**
+**[Ashywalker](https://www.spriters-resource.com/profile/askywalker/)**  
 For [Memoryhead Sprites](https://www.spriters-resource.com/custom_edited/undertalecustoms/asset/125191/).
 
 **[Hyperboid](https://github.com/Hyperboid), [Diamond Deltahedron](https://github.com/DIAMONDDELTAHEDRON), & [Arlee](https://github.com/Arlee-Puncher)**  
@@ -31,7 +31,7 @@ For the [Achievements Library](https://gamebanana.com/tools/11752).
 **[Vitellary](https://github.com/vitellaryjr)**  
 For the [PhaseEncounters Library](https://github.com/vitellaryjr/PhaseEncounters).
 
-**[yeetussnoopy](https://github.com/yeetussnoopy)**
+**[yeetussnoopy](https://github.com/yeetussnoopy)**  
 For [Custom Titanspawns](https://github.com/yeetussnoopy/custom-titanspawns) that I referenced to help make the "Forget" ACT for the Memoryheads.
 
 **[AcousticJamm](https://acousticjamm.carrd.co/) (...again.)**  
