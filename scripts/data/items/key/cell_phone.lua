@@ -74,13 +74,16 @@ function item:onWorldUse()
                     cutscene:text("* I just wanted to finally be honest with you.")
                     cutscene:wait(0.5)
                     cutscene:text("* You are the worst thing to have ever happened to me.")
-                    cutscene:text("* Asriel")
+                    cutscene:text("* Asriel would say the same,[wait:4] but,[wait:4] he doesn't have the courage to tell you.")
                 else
                     cutscene:setSpeaker("noelle")
                     cutscene:text("* Hey,[wait:4] Kris.")
                     cutscene:text("* You've been keeping me waiting long enough.")
                     cutscene:text("* I'm tired of waiting.")
                 end
+                
+                cutscene:setSpeaker()
+                cutscene:text("* ...")
                 Game:setFlag("phone", true)
             end
 

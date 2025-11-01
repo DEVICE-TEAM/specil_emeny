@@ -7,9 +7,6 @@ return {
         local rosy = c:getCharacter("rosy")
         local kris = c:getCharacter("kris")
 
-        rosy:setSprite("battle/hurt_real")
-        rosy.alpha = 0
-
         local wind = Music()
         wind:play("mus_ut_wind")
         c:wait(3)
@@ -358,6 +355,14 @@ return {
         Game.battle:addChild(miss_message)
 
         Assets.playSound("antumbral_shield")
+        
+        local antumbral_shield = Sprite("effects/antumbral_shield", old_rosy_x, old_rosy_y)
+        antumbral_shield:setOrigin(0.5, 0.5)
+        antumbral_shield:setScale(2, 2)
+        Game.battle:addChild(antumbral_shield)
+        antumbral_shield:play(0.05, false, function()
+            antumbral_shield:remove()
+        end)
 
         swoon_sprite:remove()
         Assets.stopSound("knight_cut")

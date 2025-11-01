@@ -19,6 +19,9 @@ function RosyBattle:init()
 
     -- Game.battle.your_taking_too_long = 0
 
+    self.rosy:setSprite("battle/hurt_real")
+    self.rosy.alpha = 0
+
 end
 
 function RosyBattle:backgroundInit()
@@ -534,6 +537,7 @@ function RosyBattle:update()
     --     end
     -- end
 
+    super.update(self)
 end
 
 function RosyBattle:beforeStateChange(old, new)
