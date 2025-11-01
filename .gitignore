@@ -2,5 +2,5 @@
 libraries/
 
 *.tiled-session
-
 *.zip
+*.code-workspace
