@@ -64,15 +64,15 @@ function Rosy:getAttackDamage(damage, battler, points)
     if Game.battle.rosy_gone ~= true then
         if points == 150 then
             if self.health <= 49 then
-                dealt_damage = 55
+                dealt_damage = 5
             else
-                dealt_damage = 55
+                dealt_damage = 2
             end
         elseif points > 50 then
             if self.health <= 49 then
-                dealt_damage = 55
+                dealt_damage = 2
             else
-                dealt_damage = 55
+                dealt_damage = 1
             end
         else
             dealt_damage = 0
