@@ -61,9 +61,22 @@ function item:init()
     }
 end
 
+function item:getLastMeal(chara)
+    local last_meal_flag = Game:getFlag(chara.actor.id.."_last_meal", nil)
+
+    local last_meal
+    if last_meal_flag ~= nil then
+        last_meal = Registry.createItem(Game:getFlag(chara.actor.id.."_last_meal"))
+    end
+
+    return last_meal
+end
+
 function item:getBattleHealAmount(id)
-    local last_meal = Registry.createItem(Game:getFlag(id.."_last_meal"))
-    if last_meal.id == "copy_pasta" or last_meal == nil then
+
+    local last_meal = self:getLastMeal(Character(id))
+
+    if last_meal == nil or last_meal.id == "copy_pasta" then
         return self.heal_amount
     else
         --- Silly VSCode...
@@ -73,10 +86,12 @@ function item:getBattleHealAmount(id)
 end
 
 function item:getBattleText(user, target)
-    local last_meal = Registry.createItem(Game:getFlag(target.actor.id.."_last_meal"))
+
+    local last_meal = self:getLastMeal(target)
+
     local base_message = "* "..user.chara:getName().." used the "..self:getUseName().."![wait:10]\n"
 
-    if last_meal.id == "copy_pasta" or last_meal == nil then
+    if last_meal == nil or last_meal.id == "copy_pasta" then
         return base_message.. "* It tasted really bland."
     else
         --- Silly VSCode...
