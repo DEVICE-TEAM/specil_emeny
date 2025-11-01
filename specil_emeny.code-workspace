@@ -1,7 +1,10 @@
 {
-	"folders": [
-		{
-			"path": "."
-		}
-	]
+    "settings": {
+        "figura.librariesFolderPath": "C:\\Users\\User\\AppData\\Roaming\\.minecraft\\figura\\avatars\\libraries\\"
+    },
+    "folders": [
+        {
+            "path": "."
+        }
+    ]
 }

@@ -7,6 +7,9 @@ return {
         local rosy = c:getCharacter("rosy")
         local kris = c:getCharacter("kris")
 
+        rosy:setSprite("battle/hurt_real")
+        rosy.alpha = 0
+
         local wind = Music()
         wind:play("mus_ut_wind")
         c:wait(3)
@@ -376,6 +379,7 @@ return {
         rosy_trap:remove()
         c:wait(4)
         Game.battle.trippy_background:remove()
+        Game.battle.trippy_background_part_2:remove()
         c:fadeIn(0)
         kris.y = kris.y + 40
         kris:setSprite("fell")

@@ -6,6 +6,8 @@ function Map:onEnter()
     self.nightmarefilter1 = ShaderFX(Mod.grayShader)
     self.nightmarefilter2 = RecolorFX(0.7, 0.1, 0.3, 1.0)
 
+    -- Absolutely disgusting.
+    -- Just wanted to specifically say that this thing I wrote completely sucks and I should be ashamed.
     if StringUtils.contains(self.data.full_path, "nightmare") and StringUtils.contains(self.data.full_path, "FINAL") ~= true then
         for i, child in ipairs(Game.world.children) do
 

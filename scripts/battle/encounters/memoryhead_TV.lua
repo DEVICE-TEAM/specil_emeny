@@ -31,12 +31,12 @@ function MemoryheadBattle:init()
 
     Game.battle:addChild(Game.battle.trippy_background)
 
-    local memoryhead_a = self:addEnemy("memoryhead")
-    local memoryhead_b = self:addEnemy("memoryhead")
+    self.memoryhead_a = self:addEnemy("memoryhead")
+    self.memoryhead_b = self:addEnemy("memoryhead")
 
     self:addPhase({{
         text = "* You are [color:#ff0000]AFRAID[color:white] of the      ...[wait:8]\n* When TP reaches MAX, you are damaged!",
-        --wave = "memoryhead/freakout"
+        wave = "memoryhead/freakout"
     }})
     self:randomWavesForPhase({
         "memoryhead/freakout",
@@ -70,16 +70,6 @@ end
 
 function MemoryheadBattle:onBattleEnd()
     Game.battle.timer:tween(1, Game.battle.back_background, {alpha = 0})
-end
-
-function MemoryheadBattle:update()
-
-
-    if Game:getTension() == 100 then
-        Game:setTension(Game:getTension() - 5)
-        Game.battle:getActiveParty()[1]:hurt(55, true)
-    end
-
 end
 
 return MemoryheadBattle

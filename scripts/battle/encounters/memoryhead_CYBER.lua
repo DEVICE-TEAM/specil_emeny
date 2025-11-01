@@ -28,17 +28,17 @@ function MemoryheadBattle:init()
 
     Game.battle:addChild(Game.battle.trippy_background)
 
-    local memoryhead_a = self:addEnemy("memoryhead")
-    local memoryhead_b = self:addEnemy("memoryhead")
-    local memoryhead_c = self:addEnemy("memoryhead")
+    self.memoryhead_a = self:addEnemy("memoryhead")
+    self.memoryhead_b = self:addEnemy("memoryhead")
+    self.memoryhead_c = self:addEnemy("memoryhead")
 
-    memoryhead_a.id = "memoryhead_a"
-    memoryhead_b.id = "memoryhead_b"
-    memoryhead_c.id = "memoryhead_c"
+    self.memoryhead_a.id = "memoryhead_a"
+    self.memoryhead_b.id = "memoryhead_b"
+    self.memoryhead_c.id = "memoryhead_c"
 
     self:addPhase({{
         text = "* Who are you running from?",
-        wave = "memoryhead/freakout"
+        wave = "memoryhead/freakout_x3"
     }})
     self:randomWavesForPhase({
         "memoryhead/cognitohazard",
@@ -57,7 +57,6 @@ function MemoryheadBattle:init()
 end
 
 function MemoryheadBattle:beforeStateChange(old, new)
-
     if new == "DEFENDINGBEGIN" then
         for _,enemy in ipairs(Game.battle.enemies) do
             enemy:fadeOut()
@@ -78,13 +77,6 @@ end
 
 function MemoryheadBattle:onBattleEnd()
     Game.battle.timer:tween(1, Game.battle.back_background, {alpha = 0})
-end
-
-function MemoryheadBattle:update()
-    if Game:getTension() == 100 then
-        Game:setTension(Game:getTension() - 5)
-        Game.battle:getActiveParty()[1]:hurt(55, true)
-    end
 end
 
 return MemoryheadBattle

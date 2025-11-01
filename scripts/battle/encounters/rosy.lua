@@ -3,27 +3,25 @@ local RosyBattle, super = Class(PhaseEncounter)
 function RosyBattle:init()
     super.init(self)
 
-    local wave_shader = love.graphics.newShader([[
-        extern number wave_sine;
-        extern number wave_mag;
-        extern number wave_height;
-        extern vec2 texsize;
-        vec4 effect( vec4 color, Image texture, vec2 texture_coords, vec2 screen_coords )
-        {
-            number i = texture_coords.y * texsize.y;
-            vec2 coords = vec2(max(0.0, min(1.0, texture_coords.x + (sin((i / wave_height) + (wave_sine / 30.0)) * wave_mag) / texsize.x)), max(0.0, min(1.0, texture_coords.y + 0.0)));
-            return Texel(texture, coords) * color;
-        }
-    ]])
-
     self.text = "* [color:red]SPECIL EMENY[color:reset][shake:0] aPpRoAcES!1!"
 
     self.music = "mus_rt_SPECIL_EMENY"
 
     self.background = false
-
     self.fear_tp = true
 
+    self.rosy = self:addEnemy("rosy")
+
+    Game:setTension(55)
+
+    self:phaseDataInit()
+    self:backgroundInit()
+
+    -- Game.battle.your_taking_too_long = 0
+
+end
+
+function RosyBattle:backgroundInit()
     Game.battle.back_background = Sprite("effects/blank_background")
     Game.battle.back_background:setLayer(BATTLE_LAYERS["bottom"])
     Game.battle.back_background:setScale(10, 10)
@@ -32,25 +30,18 @@ function RosyBattle:init()
     Game.battle.trippy_background = Sprite("effects/background", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
     Game.battle.trippy_background:setLayer(BATTLE_LAYERS["bottom"])
     Game.battle.trippy_background:setOrigin(0.5)
-    Game.battle.trippy_background:setScale(0.5, 0.5)
     Game.battle.trippy_background.alpha = 0
-
-    Game.battle.trippy_background:addFX(ShaderFX(wave_shader, {
-        ["wave_sine"] = function () return Kristal.getTime() * 100 end,
-        ["wave_mag"] = 20,
-        ["wave_height"] = 20,
-        ["texsize"] = { SCREEN_WIDTH, SCREEN_HEIGHT }
-    }), "funky_mode")
-
     Game.battle:addChild(Game.battle.trippy_background)
+    Game.battle.trippy_background_part_2 = Sprite("effects/background", SCREEN_WIDTH/2, SCREEN_HEIGHT/2)
+    Game.battle.trippy_background_part_2:setLayer(BATTLE_LAYERS["bottom"])
+    Game.battle.trippy_background_part_2:setOrigin(0.5)
+    Game.battle.trippy_background_part_2.alpha = 0
+    Game.battle:addChild(Game.battle.trippy_background_part_2)
+end
 
-    local rosy = self:addEnemy("rosy")
+function RosyBattle:phaseDataInit()
 
-    rosy:setSprite("battle/hurt_real")
-
-    rosy.alpha = 0
-
-    Game:setTension(55)
+    local rosy = self.rosy
 
     -- Phase 1
     self:addPhase({
@@ -491,17 +482,15 @@ function RosyBattle:init()
     -- self:randomTextForPhase({
     --     "Placeholder"
     -- })
-
-    Game.battle.your_taking_too_long = 0
-
 end
-
 
 function RosyBattle:onBattleEnd()
     Game.battle.timer:tween(1, Game.battle.back_background, {alpha = 0})
     Game.world.timer:after(1, function()
         Game.world:startCutscene("nightmare.END")
     end)
+
+    -- Achievements.
     if Game.battle.got_hit ~= true then
         Kristal.callEvent("completeAchievement", "no_hit")
     end
@@ -513,21 +502,21 @@ end
 
 function RosyBattle:update()
 
-    local rosy = Game.battle:getActiveEnemies()[1]
+    local rosy = self.rosy
 
+    -- Background animation
     if Game.battle.music:isPlaying() then
         if Game.battle.music:tell() > 9 and Game.battle.trippy_background.alpha == 0 then
-            Game.battle.timer:tween(4, Game.battle.trippy_background, {alpha = 0.7}, "in-out-cubic")
+            Game.battle.timer:tween(4, Game.battle.trippy_background, {alpha = 0.3}, "in-out-cubic")
+            Game.battle.timer:tween(4, Game.battle.trippy_background_part_2, {alpha = 0.1}, "in-out-cubic")
 
         end
     end
-
-    if Game:getTension() == 100 then
-        Game:setTension(Game:getTension() - 5)
-        Game.battle:getActiveParty()[1]:hurt(55, true)
-    end
+    Game.battle.trippy_background:setScale(1.05 + (math.sin(Kristal.getTime()) / 25))
+    Game.battle.trippy_background:setScale(1.05 + (math.sin(Kristal.getTime()) / 40))
 
     -- YOUR TAKING TOO LONG!
+    -- (Removed for time. Wanted unique VA and for it to work a bit better. Will be re-added eventually.)
     -- if Game.battle:getState() == "ACTIONSELECT" and
     --    self.current_phase_turn == 1 and
     --    self.current_phase == 1 then
@@ -550,7 +539,6 @@ end
 function RosyBattle:beforeStateChange(old, new)
     if new == "INTRO" and Game.battle.intro_happened ~= true then
         Game.battle:startCutscene("rosy_battle", "intro")
-        -- Game.battle:getActiveEnemies()[1].alpha = 1
     elseif new == "ACTIONSDONE" then
         if Game.battle:getActiveEnemies()[1] then
             if Game.battle:getActiveEnemies()[1].health == 0 and self.current_phase == 1 then
