@@ -34,7 +34,11 @@ end
 
 -- This function checks to see if the save file in question actually exists.
 function DRSaveFile:exists(fileName)
-    local f = io.open(DRSaveFile:directory() .. fileName, "r")
+    local f
+    if DRSaveFile:directory() ~= nil then
+        f = io.open(DRSaveFile:directory() .. fileName, "r")
+    end
+
     return f ~= nil and io.close(f)
 end
 

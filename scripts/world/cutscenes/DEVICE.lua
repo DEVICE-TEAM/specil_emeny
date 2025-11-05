@@ -28,12 +28,24 @@ return {
 
         kris.alpha, susie.alpha, ralsei.alpha = 0, 0, 0
 
-        if DR_save == nil then
-            local chosen
-            local save_warning = Text(
+        local unsupported_os = not (love.system.getOS() == "Windows" or love.system.getOS() == "OS X")
+
+        local save_warning_first_line =
                 "Could not locate Chapter 1 completion data.\n\n"..
                 "While not explicitly required, this program is intended for players who have completed DELTARUNE up to Chapter 4.\n\n"..
-                "Additional features are unlocked for those who have DELTARUNE completion data on their system.",
+                "Additional small features are unlocked for those who have DELTARUNE completion data on their system."
+        local save_warning_second_option = "PLAY DELTARUNE"
+        if unsupported_os then
+            save_warning_first_line =
+                "You have a currently unsupported OS! ("..love.system.getOS()..")\n\n"..
+                "You are still able to play, but some small features may not be available to you, due to not being able to access your DELTARUNE save file."
+            save_warning_second_option = "       QUIT     "
+        end
+
+        if DR_save == nil or unsupported_os == true then
+            local chosen
+            local save_warning = Text(
+                save_warning_first_line,
 
                 SCREEN_WIDTH, 20, 540, nil, { auto_size = true, align = "center" }
             )
@@ -43,7 +55,7 @@ return {
             Game.world.timer:tween(0.5, save_warning, { alpha = 1 }, "linear")
 
             local save_warning_choicer = GonerChoice(SCREEN_WIDTH/2, 380, {
-                {{"   CONTINUE",0,0},{"<<"},{">>"},{"PLAY DELTARUNE",360,0}}
+                {{"   CONTINUE",0,0},{"<<"},{">>"},{save_warning_second_option,360,0}}
             }, function(choice)
                 chosen = choice
             end)
@@ -59,8 +71,10 @@ return {
             c:wait(0.4)
             Game.world.timer:tween(0.6, save_warning, { scale_x = 0, alpha = 0 }, "in-out-quad")
             c:wait(1.0)
-            if chosen == "PLAY DELTARUNE" then
-                love.system.openURL("https://deltarune.com/")
+            if chosen == save_warning_second_option then
+                if save_warning_second_option == "PLAY DELTARUNE" then
+                    love.system.openURL("https://deltarune.com/")
+                end
                 Kristal.returnToMenu()
             end
             c:wait(1.0)
