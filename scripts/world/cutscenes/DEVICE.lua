@@ -37,7 +37,7 @@ return {
         local save_warning_second_option = "PLAY DELTARUNE"
         if unsupported_os then
             save_warning_first_line =
-                "You have a currently unsupported OS! ("..love.system.getOS()..")\n\n"..
+                "You are playing on a currently unsupported operating system!\n\n("..love.system.getOS()..")\n\n"..
                 "You are still able to play, but some small features may not be available to you, due to not being able to access your DELTARUNE save file."
             save_warning_second_option = "       QUIT     "
         end
