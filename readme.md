@@ -37,7 +37,10 @@ For [Custom Titanspawns](https://github.com/yeetussnoopy/custom-titanspawns) tha
 **[AcousticJamm](https://acousticjamm.carrd.co/) (...again.)**  
 For a [grayscale shader](https://discord.com/channels/899153719248191538/900166836958666752/1249363689841365025).
 
-**@hamstopher_again**  
+**[AcousticJamm](https://acousticjamm.carrd.co/) (...I think this is the final time.)**  
+For a [snippet that demonstrated how to retrieve data from DELTARUNE's save file](https://discord.com/channels/899153719248191538/900166836958666752/1015762801987432538) that I used for the way I do it here.
+
+**@hamstopher_again** [(and Hyperboid...?)](https://discord.com/channels/899153719248191538/1295149402314506282/1382440481971241001)  
 For [code to recreate Knight's afterimage, and hovering movement](https://discord.com/channels/899153719248191538/1385780171499503787/1385800138051813387).
 
 **MihBoss**  
